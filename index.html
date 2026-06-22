@@ -393,7 +393,7 @@
         if (cursor.isPinching && !cursor.grabbedCard && !isHoveringSomething) cursor.state = CURSOR_MISS;
     }
 
-    // --- Render Loop ---
+// --- Render Loop ---
     function drawLoop() {
         update();
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -417,6 +417,7 @@
             ctx.fillText("กำลังหามือของคุณ... หรือใช้เมาส์คลิกเพื่อเล่น", canvas.width / 2, 28);
         }
 
+        // ---------- ส่วนที่ปรับแก้ตำแหน่งตัวอักษร ----------
         if (gameState === "INSTRUCTION") {
             ctx.fillStyle = cursor.state === CURSOR_HOVER ? "#f472b6" : "#ec4899"; // Pink button
             ctx.beginPath();
@@ -430,7 +431,7 @@
             ctx.font = "bold 32px 'Mali'";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
-            ctx.fillText(instructionBtn.text, instructionBtn.x + instructionBtn.w/2, instructionBtn.y + instructionBtn.h/2);
+            ctx.fillText(instructionBtn.text, instructionBtn.x + instructionBtn.w/2, instructionBtn.y + instructionBtn.h/2 - 8);
         }
         else if (gameState === "PLAYING") {
             // Drop Zone
@@ -448,7 +449,7 @@
             ctx.font = "bold 26px 'Mali'";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
-            ctx.fillText("วางคำที่ถูกต้องที่นี่", dropZone.x + dropZone.w/2, dropZone.y + dropZone.h/2);
+            ctx.fillText("วางคำที่ถูกต้องที่นี่", dropZone.x + dropZone.w/2, dropZone.y + dropZone.h/2 - 5);
 
             // Cards
             cards.forEach(card => {
@@ -472,9 +473,11 @@
 
                 ctx.fillStyle = "#0f172a";
                 ctx.font = "bold 26px 'Mali'";
-                ctx.fillText(card.text, card.x + card.w/2, card.y + card.h - 35);
+                ctx.textBaseline = "middle";
+                ctx.fillText(card.text, card.x + card.w/2, card.y + card.h - 45);
             });
         }
+        // ------------------------------------------------
 
         // Cursor
         if (gameState !== "START" && gameState !== "END" && gameState !== "GAME_OVER") {
