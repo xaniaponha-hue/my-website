@@ -419,8 +419,8 @@
             ctx.textBaseline = "middle";
             ctx.fillText(instructionBtn.text, instructionBtn.x + instructionBtn.w/2, instructionBtn.y + instructionBtn.h/2);
         }
-        else if (gameState === "PLAYING") {
-            // Drop Zone
+       else if (gameState === "PLAYING") {
+            // วาด Drop Zone
             ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
             ctx.beginPath();
             ctx.roundRect(dropZone.x, dropZone.y, dropZone.w, dropZone.h, 20);
@@ -433,11 +433,11 @@
             
             ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
             ctx.font = "bold 26px 'Mali'";
-            ctx.textAlign = "center";
+            ctx.textAlign = "center";    // บังคับกึ่งกลาง
             ctx.textBaseline = "middle";
-            ctx.fillText("วางคำที่ถูกต้องที่นี่", dropZone.x + dropZone.w/2, dropZone.y + dropZone.h/2);
+            ctx.fillText("วางคำที่ถูกต้องที่นี่", dropZone.x + dropZone.w/2, dropZone.y + dropZone.h/2 - 15); // ดึงขึ้นมา 15 px
 
-            // Cards (กล่องคำศัพท์)
+            // วาด Cards (กล่องคำศัพท์)
             cards.forEach(card => {
                 ctx.fillStyle = "rgba(0,0,0,0.3)";
                 ctx.beginPath();
@@ -452,17 +452,18 @@
                 ctx.strokeStyle = "#cbd5e1";
                 ctx.stroke();
 
+                // อิโมจิ
                 ctx.font = "70px Arial";
-                ctx.textAlign = "center";
+                ctx.textAlign = "center";    // บังคับกึ่งกลาง
                 ctx.textBaseline = "middle";
                 ctx.fillText(card.emoji, card.x + card.w/2, card.y + card.h/2 - 25);
 
-                // --- ส่วนที่แก้เพื่อ iPad ---
+                // คำศัพท์ภาษาไทย
                 ctx.fillStyle = "#0f172a";
                 ctx.font = "bold 26px 'Mali'";
-                ctx.textBaseline = "bottom"; // เปลี่ยนจาก middle เป็น bottom
-                // สั่งให้ตัวอักษรลอยสูงขึ้นมาจากขอบล่างของกล่อง 20 พิกเซลเสมอ
-                ctx.fillText(card.text, card.x + card.w/2, card.y + card.h - 20); 
+                ctx.textAlign = "center";    // บังคับกึ่งกลาง (แก้ปัญหาหลุดขวา)
+                ctx.textBaseline = "bottom"; 
+                ctx.fillText(card.text, card.x + card.w/2, card.y + card.h - 35); // ดึงขึ้นมา 35 px (แก้ปัญหาทะลุขอบล่าง)
             });
         }
 
