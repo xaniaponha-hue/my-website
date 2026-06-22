@@ -380,7 +380,7 @@
         if (cursor.isPinching && !cursor.grabbedCard && !isHoveringSomething) cursor.state = CURSOR_MISS;
     }
 
-    // --- Render Loop ---
+// --- Render Loop ---
     function drawLoop() {
         update();
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -417,7 +417,7 @@
             ctx.font = "bold 32px 'Mali'";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
-            ctx.fillText(instructionBtn.text, instructionBtn.x + instructionBtn.w/2, instructionBtn.y + instructionBtn.h/2 - 8);
+            ctx.fillText(instructionBtn.text, instructionBtn.x + instructionBtn.w/2, instructionBtn.y + instructionBtn.h/2);
         }
         else if (gameState === "PLAYING") {
             // Drop Zone
@@ -435,9 +435,9 @@
             ctx.font = "bold 26px 'Mali'";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
-            ctx.fillText("วางคำที่ถูกต้องที่นี่", dropZone.x + dropZone.w/2, dropZone.y + dropZone.h/2 - 5);
+            ctx.fillText("วางคำที่ถูกต้องที่นี่", dropZone.x + dropZone.w/2, dropZone.y + dropZone.h/2);
 
-            // Cards
+            // Cards (กล่องคำศัพท์)
             cards.forEach(card => {
                 ctx.fillStyle = "rgba(0,0,0,0.3)";
                 ctx.beginPath();
@@ -457,10 +457,12 @@
                 ctx.textBaseline = "middle";
                 ctx.fillText(card.emoji, card.x + card.w/2, card.y + card.h/2 - 25);
 
+                // --- ส่วนที่แก้เพื่อ iPad ---
                 ctx.fillStyle = "#0f172a";
                 ctx.font = "bold 26px 'Mali'";
-                ctx.textBaseline = "middle";
-                ctx.fillText(card.text, card.x + card.w/2, card.y + card.h - 45);
+                ctx.textBaseline = "bottom"; // เปลี่ยนจาก middle เป็น bottom
+                // สั่งให้ตัวอักษรลอยสูงขึ้นมาจากขอบล่างของกล่อง 20 พิกเซลเสมอ
+                ctx.fillText(card.text, card.x + card.w/2, card.y + card.h - 20); 
             });
         }
 
